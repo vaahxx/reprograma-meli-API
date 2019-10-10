@@ -8,9 +8,13 @@ exports.get = (req, res) => {
 }
 exports.getById = (req, res) => {
     // pega o ID dos queryParameters da URL
-    const id = req.params.id;
-    console.log(id);
-    res.status(200).send(alunas.find(e => e.id == id));
+    const idURL = req.params.id;
+    if (idURL > 17) {
+        // res.send('ID invalido');
+        res.redirect(301, 'https://pt.wikipedia.org/wiki/Barbie');
+    }
+    const alunaEncontrada = alunas.find(e => e.id == idURL);
+    res.status(200).send(alunaEncontrada);
 }
 exports.getBooks = (req, res) => {
     const id = req.params.id;
@@ -25,19 +29,21 @@ exports.getBooks = (req, res) => {
     livrosAluna.forEach(element => {
         livros.push(element.titulo);
     });
-    
-    let livrosLidos = [];
-    aluna.livros.forEach(element => {
-        if (element.leu === true) {
-            livrosLidos.push(element.titulo);
-        }
-    });
 
     console.log(livros)
     console.log(aluna.livros)
     console.log(livrosLidos)
 
-    
-
+    if (!aluna) {
+        Response.send('Nao encontrei esta aluna');
+    }
     res.status(200).send(livros);
+}
+
+exports.getSp = (req, res) => {
+    const paulistas = alunas.filter(e => e.nasceuEmSp == "true");
+    const paulistasNome = paulistas.map(e => e.nome);
+    console.log(paulistas);
+    console.log(paulistasNome);
+    res.status(200).send(paulistasNome);
 }
