@@ -2,5 +2,9 @@
 const professorasJson = require('../model/professoras.json');
 
 exports.get = (req, res) => {
-    res.status(200).send(professorasJson);
-};
+    const professorasSemCpf = professorasJson.map((e) => {
+        e.cpf = '***********';
+        return e;
+    })
+    res.status(200).send(professorasSemCpf)
+}
