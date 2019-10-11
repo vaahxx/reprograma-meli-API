@@ -47,3 +47,28 @@ exports.getSp = (req, res) => {
     console.log(paulistasNome);
     res.status(200).send(paulistasNome);
 }
+
+function calcularIdade(diaDeNasc, mesDeNasc, anoDeNasc) {
+      const now = new Date()
+      const anoAtual = now.getFullYear()
+      const mesAtual = now.getMonth() + 1 // adiciona 1 porque o array de meses começa no 0 
+      const hoje = now.getDate()
+    
+      let idade = anoAtual - anoDeNasc
+    
+      if (mesAtual < mesDeNasc || (mesAtual == mesDeNasc && hoje < diaDeNasc)) {
+        idade -= 1
+      }
+      return idade
+    }
+
+    exports.getIdade = (req, res) => {
+        const idURL = req.params.id;
+        const alunaEscolhida = alunas.find(e => e.id == idURL);
+        console.log(alunaEscolhida);
+        console.log(alunaEscolhida.dateOfBirth);
+        const dtNasc = alunaEscolhida.dateOfBirth.split('/');
+        const idade = calcularIdade(dtNasc[0], dtNasc[1], dtNasc[2]);
+        console.log(idade);
+        res.send(`A idade da aluna é ${idade}`);
+    };

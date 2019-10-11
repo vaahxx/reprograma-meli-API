@@ -1,0 +1,22 @@
+[
+    {
+      "nome": "natalya",
+      "especialidade": "Java",
+      "signo": "leão" 
+    },
+    {
+      "nome": "mayara",
+      "especialidade": "Java",
+      "signo": "cancer"
+    },
+    {
+      "nome": "helena",
+      "especialidade": "rainha dos código tudo",
+      "signo": "libra"
+    },
+    {
+      "nome": "luma",
+      "especialidade": "C#",
+      "signo": "capricornio"
+    }
+  ]
