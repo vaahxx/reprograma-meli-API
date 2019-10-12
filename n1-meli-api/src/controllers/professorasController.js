@@ -8,3 +8,10 @@ exports.get = (req, res) => {
     })
     res.status(200).send(professorasSemCpf)
 }
+
+exports.getById = (req, res) => {
+    const idURL = req.params.id;
+    const professoraEncontrada = professorasJson.find(e => e.id == idURL);
+    professoraEncontrada.cpf = '*********'
+    res.status(200).send(professoraEncontrada);    
+}
