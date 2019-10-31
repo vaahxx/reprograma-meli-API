@@ -57,6 +57,8 @@ exports.postBooks = (req, res) => {
         Response.send('Nao encontrei esta aluna');
     }
     const {titulo, leu} = req.body;
+    console.log({titulo, leu});
+    console.log(req.body);
     alunas[aluna.id - 1].livros.push({ titulo, leu });
     fs.writeFile("./src/model/alunas.json", JSON.stringify(alunas), 'utf8', function (err) {
         if (err) {
