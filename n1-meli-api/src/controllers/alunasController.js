@@ -1,11 +1,27 @@
+//req params, query e body = propriedades da request
+//params vem da URL
 // acesso a camada Model
 const alunas = require('../model/alunas.json');
+// importa o file system 
+const fs = require('fs');
 
 exports.get = (req, res) => {
     console.log(req.url);
     res.status(200).send(alunas);
-
 }
+exports.post = (req, res) => {
+    // destructuring assignment
+    const {nome, dateOfBirth, nasceuEmSp, id, livros} = req.body;
+    alunas.push({nome, dateOfBirth, nasceuEmSp, id, livros});
+    fs.writeFile("./src/model/alunas.json", JSON.stringify(alunas), 'utf8', function (err) {
+        if (err) {
+            return res.status(500).send({ message:err });
+        }
+        console.log('file was saved')
+    });
+    return res.status(201).send(alunas);
+}
+
 exports.getById = (req, res) => {
     // pega o ID dos queryParameters da URL
     const idURL = req.params.id;

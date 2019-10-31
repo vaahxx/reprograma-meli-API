@@ -7,10 +7,8 @@ const index = require('./routes/index');
 const alunas = require('./routes/alunasRoute');
 const professoras = require('./routes/professorasRoute');
 
-// app.all('*', function(req, res, next) {
-//     console.log('app . all');
-//     next();
-// })
+// traduz as requisições POST em JSON. outra opção seria usar o body parser
+app.use(express.json());
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
