@@ -45,15 +45,26 @@ exports.getBooks = (req, res) => {
     livrosAluna.forEach(element => {
         livros.push(element.titulo);
     });
-
-    console.log(livros)
-    console.log(aluna.livros)
-    console.log(livrosLidos)
-
     if (!aluna) {
         Response.send('Nao encontrei esta aluna');
     }
     res.status(200).send(livros);
+}
+exports.postBooks = (req, res) => {
+    const id = req.params.id;
+    const aluna = alunas.find(e => e.id == id);
+    if (!aluna) {
+        Response.send('Nao encontrei esta aluna');
+    }
+    const {titulo, leu} = req.body;
+    alunas[aluna.id - 1].livros.push({ titulo, leu });
+    fs.writeFile("./src/model/alunas.json", JSON.stringify(alunas), 'utf8', function (err) {
+        if (err) {
+            return res.status(500).send({ message:err });
+        }
+        console.log('file was saved');
+    });
+    return res.status(201).send(alunas[aluna.id - 1].livros);
 }
 
 exports.getSp = (req, res) => {
